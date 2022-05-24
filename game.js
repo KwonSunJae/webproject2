@@ -57,8 +57,8 @@ function start(){
 
 var interval;
 function opening(){
-    interval= setInterval(keep,80);
-    
+    //interval= setInterval(keep,80);
+    setInterval(loop,80);
 }
 
 
@@ -224,30 +224,39 @@ function coming_droh(){
 // create  player instance
 
 function input(player){
+    var flag =1;
+    
 
-
-    if(37 in keys){
-        player.x -=player.speed;
+    if(37 in keys){//left
+        if(player.x-player.speed <=550&&player.y>=970&&player.y<=1370)flag =0;
+        player.x -=player.speed* flag;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         player.direction = 0;
+        console.log(player.x.toString()+","+player.y.toString());
         player.type = (player.type+1)%3;
     }
-    if(39 in keys){
-        player.x += player.speed;
+    if(39 in keys){//dright
+        if(player.x+player.speed <=550&&player.y>=970&&player.y<=1370)flag =0;
+        player.x += player.speed*flag;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         player.direction = 6;
+        console.log(player.x.toString()+","+player.y.toString());
         player.type = (player.type+1)%3;
     }
-    if(38 in keys){
-        player.y -=player.speed;
+    if(38 in keys){//up
+        if(player.x<=550&&player.y-player.speed >=970&&player.y-player.speed <=1370)flag =0;
+        player.y -=player.speed*flag;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         player.direction = 9;
+        console.log(player.x.toString()+","+player.y.toString());
         player.type = (player.type+1)%3;
     }
-    if(40 in keys){
-        player.y += player.speed;
+    if(40 in keys){//down
+        if(player.x<=550&&player.y+player.speed >=970&&player.y+player.speed <=1370)flag =0;
+        player.y += player.speed*flag;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         player.direction = 3;
+        console.log(player.x.toString()+","+player.y.toString());
         player.type = (player.type+1)%3;
     }
 
