@@ -228,7 +228,12 @@ function input(player){
     
 
     if(37 in keys){//left
-        if(player.x-player.speed <=550&&player.y>=970&&player.y<=1370)flag =0;
+        if(player.x-player.speed<=550&&player.y>980&&player.y<=1370)flag =0;
+        if(player.x-player.speed<=170&&player.y>=1370&&player.y<=1450)flag = 0;
+        if(player.x-player.speed<=550&&player.y>1450&&player.y<=1480)flag=0;
+        if(player.x-player.speed<=740&&player.y<520)flag=0;
+        if(player.x<=370&&player.y>=520&&player.y<800)flag=0;
+        if(player.x<=0)flag=0;
         player.x -=player.speed* flag;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         player.direction = 0;
@@ -236,7 +241,11 @@ function input(player){
         player.type = (player.type+1)%3;
     }
     if(39 in keys){//dright
-        if(player.x+player.speed <=550&&player.y>=970&&player.y<=1370)flag =0;
+        if(player.x+player.speed <=550&&player.y>980&&player.y<=1370)flag =0;
+        if(player.x+player.speed>=1620&&player.y>=1290)flag=0;
+        if(player.x+player.speed>=1090&&player.y<=1280&&player.y>=890)flag=0;
+        if(player.x+player.speed>=1660&&player.y<=880&&player.y>=520)flag=0;
+        if(player.x+player.speed>=1090&&player.y<520)flag=0;
         player.x += player.speed*flag;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         player.direction = 6;
@@ -244,7 +253,12 @@ function input(player){
         player.type = (player.type+1)%3;
     }
     if(38 in keys){//up
-        if(player.x<=550&&player.y-player.speed >=970&&player.y-player.speed <=1370)flag =0;
+        if(player.x<=550&&player.y-player.speed >=980&&player.y-player.speed <=1370)flag =0;
+        if(player.x>1080&&player.y-player.speed<=1280&&player.y-player.speed>=950)flag=0;
+        if(player.x<=1650&&player.y-player.speed<=510&&player.x>=1090)flag=0;
+        if(player.y-player.speed<=0)flag=0;
+        if(player.y-player.speed<=510&&player.x<750)flag=0;
+        if(player.y<=800&&player.x<370)flag=0;
         player.y -=player.speed*flag;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         player.direction = 9;
@@ -252,7 +266,10 @@ function input(player){
         player.type = (player.type+1)%3;
     }
     if(40 in keys){//down
-        if(player.x<=550&&player.y+player.speed >=970&&player.y+player.speed <=1370)flag =0;
+        if(player.x<=550&&player.y+player.speed >=990&&player.y+player.speed <=1370)flag =0;
+        if(player.x<=550&&player.y+player.speed>=1460)flag=0;
+        if(player.y+player.speed>=1490)flag=0;
+        if(player.x>=1090&&player.y+player.speed>=890&&player.y+player.speed<=1290)flag=0;
         player.y += player.speed*flag;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         player.direction = 3;
