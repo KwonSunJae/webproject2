@@ -57,8 +57,8 @@ function start(){
 
 var interval;
 function opening(){
-    //interval= setInterval(keep,80);
-    setInterval(loop,80);
+    interval= setInterval(keep,80);
+    //setInterval(loop,80);
 }
 
 
