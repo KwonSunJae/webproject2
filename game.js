@@ -3,6 +3,8 @@ var ctx = canvas.getContext("2d");
 var char = "./src/"
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+var pica;
+var eve;
 var keys={};
 var charimg =[];
 var charimg2 = [];
@@ -14,7 +16,7 @@ var Players = function(options){
     this.speed = options.speed;
     this.type = options.type;
     this.direction = options.direction;
-    
+    this.pocket = options.pocket;
 }
 //키보드 이벤트 소스
 window.addEventListener('keydown',function(e)
@@ -32,19 +34,23 @@ var droh = new Players({
     y:1200,
     speed:8,
     type:0,
-    direction:9
+    direction:9,
+    pocket:0
 });
 var player = new Players({
     x:700,
     y:850,
     speed:10,
     type:1,
-    direction: 3
+    direction: 3,
+    pocket:0
 });
 
 
-start();
-function start(){
+function start( a){
+    if(a==2){
+        selected_character ="smal";
+    }
     init();
     drawCharacter(player);
     opening();
@@ -57,8 +63,8 @@ function start(){
 
 var interval;
 function opening(){
-    interval= setInterval(keep,80);
-    //setInterval(loop,80);
+    //interval= setInterval(keep,80);
+    setInterval(loop,80);
 }
 
 
@@ -180,7 +186,7 @@ function keep(){
                                                                                 console.log('22222');
                                                                                 
                                                                                 ctx.drawImage(dialog[j], 0,0,  dialog[j].width,dialog[j].height,   330,  130,   dialog[j].width/3,dialog[j].height/3);
-                                                                                setInterval(loop, 80);
+                                                                                setTimeout(setInterval(loop, 80),3000);
                                                                             },3000);
                                                                         },3000);
                                                                     },3000);
@@ -225,7 +231,12 @@ function coming_droh(){
 
 function input(player){
     var flag =1;
-    
+    if(32 in keys){
+        
+        if(player.x>=740&&player.y<=790&& player.y>=700&&player.y <=800) player.pocket =1;
+        if(player.x>=800&&player.x<=850&& player.y>=700&&player.y <=800) player.pocket=2;
+        console.log(player.pocket);
+    }
 
     if(37 in keys){//left
         if(player.x-player.speed<=550&&player.y>980&&player.y<=1370)flag =0;
@@ -285,10 +296,17 @@ function drawCharacter(player){
     
     if(player.x-350+35 <= 0 || player.y - 200 + 35 <=0 ||player.x +350 - 35>=1700|| player.y +200 - 35 >= 1700 ){
         ctx.drawImage(map,player.x-350+35 <= 0?0:player.x-350+35,player.y - 200 + 35 <=0?0:player.y - 200 + 35,700,400,0,0,700,400);
+        if(player.pocket!=0){
+            ctx.drawImage(player.pocket==1?pica:eve,305,155);
+        }
         ctx.drawImage(charimg[player.direction+player.type],0,0,charimg[player.direction+player.type].width,charimg[player.direction+player.type].height,player.x-350+35 <= 0?player.x:315,player.y - 200 + 35 <=0?player.y:165,70,70);
         return;
         }
+    
     ctx.drawImage(map,player.x-350+35,player.y - 200 + 35,700,400,0,0,700,400);
+    if(player.pocket!=0){
+        ctx.drawImage(player.pocket==1?pica:eve,305,155);
+    }
     ctx.drawImage(charimg[player.direction+player.type],0,0,charimg[player.direction+player.type].width,charimg[player.direction+player.type].height,315,165,70,70);
 }
 
@@ -321,6 +339,10 @@ function loop(){
 }
 
 function init(){
+    pica = new Image;
+    eve = new Image;
+    pica.src = char+'1'+'.png';
+    eve.src = char+'2'+'.PNG';
     for(var i =0; i<12; i++){
         charimg[i] = new Image;
         charimg[i].src = char+selected_character+(i+1).toString()+".PNG";
