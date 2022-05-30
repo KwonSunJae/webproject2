@@ -103,13 +103,12 @@ class HockeyBall {
     cy = cy -34;
     obj.css({left: cx, top: cy});
     }
-  collideWall(left, top, right,bottom) {
-    if (this.mx < 0 && this.collideX < left) this.mx *= -1;
-    if (this.mx > 0 && this.collideX > right) this.mx *= -1;
-    if (this.my < 0 && this.collideY < top &&(this.collideX > WIDTH1/2 + 100 ||this.collideX < WIDTH1/2 - 100)) this.my *= -1;
-    if (this.my > 0 && this.collideY > bottom &&(this.collideX > WIDTH1/2 + 100 ||this.collideX < WIDTH1/2 - 100)) this.my *= -1;
-  }
-
+    collideWall(left, top, right,bottom) {
+        if (this.mx < 0 && this.collideX < left) this.mx *= -1;
+        if (this.mx > 0 && this.collideX > right) this.mx *= -1;
+        if (this.my < 0 && this.collideY < top &&(this.collideX > WIDTH1/2 + 125 ||this.collideX < WIDTH1/2 - 125)) this.my *= -1;
+        if (this.my > 0 && this.collideY > bottom &&(this.collideX > WIDTH1/2 + 125 ||this.collideX < WIDTH1/2 - 125)) this.my *= -1;
+      }
   draw(ctx) {
     ctx3.drawImage(hockeyballimg, this.x-this.radius,this.y-this.radius,this.radius*2,this.radius*2);
     this.change_position_gage_wrapper($("#game2wrapper"));
@@ -195,11 +194,13 @@ class HockeyGame {
   update() {
     
   	if (this.ball1.y<0) {
+        socket.emit('disconnect',"bye");
         cancelAnimationFrame(mainLoop2);
         showclearPage(1);
         $("#clearBtn").trigger("click");
         console.log("player1 win")};
   	if (this.ball1.y > HEIGHT1) {
+        socket.emit('disconnect',"bye");
         cancelAnimationFrame(mainLoop2);
         showclearPage(0);
         $("#backtostoryBtn").trigger("click");
