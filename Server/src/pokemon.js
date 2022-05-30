@@ -80,8 +80,8 @@ var playstory;
 var interval;
 
 function opening() {
-    interval= setInterval(keep,80);
-    //playstory = setInterval(loop, 80);
+    //interval= setInterval(keep,80);
+    playstory = setInterval(loop, 80);
 }
 
 function ending(){
@@ -109,7 +109,9 @@ function input(player) {
     var flag = 1;
     if ($("#storyPage").css("display") == "block") {
         if (32 in keys) {
-
+            if(player.x>=1200 && player.x<=1300&&player.y>=520&&player.y<=620){
+                multistart();
+            }
             if (player.x >= 740 && player.y <= 790 && player.y >= 700 && player.y <= 800) {
                 player.pocket = 1;
             } //포켓몬 종류하고 레벨 인자로 받기 (나중에 위치바꿈)
@@ -668,6 +670,21 @@ function pokemonselect(a, b) {
     changeBGM();
     $("#gametop").fadeIn("slow");
     $("#wrapper_gage").fadeIn("slow");
+}
+function multistart(){
+    //showGamePage();
+    hideOptionBtn();
+    $("#restartPage").hide();
+    $("#clearPage").hide();
+    
+    $("#game2").show();
+    
+    startGame2(0);
+    hideStoryPage();
+    changeBGM();
+    //$("#gametop").fadeIn("slow");
+    //$("#wrapper_gage").fadeIn("slow");
+
 }
 
 function hideStoryPage() {
