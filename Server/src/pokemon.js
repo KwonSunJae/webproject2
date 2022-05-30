@@ -80,8 +80,8 @@ var playstory;
 var interval;
 
 function opening() {
-    //interval= setInterval(keep,80);
-    playstory = setInterval(loop, 80);
+    interval= setInterval(keep,80);
+    //playstory = setInterval(loop, 80);
 }
 
 function ending(){

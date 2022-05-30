@@ -3,6 +3,7 @@ document.addEventListener("keyup", keyUpHandler, false);
 
 var canvas3 = document.getElementById("myCanvas3");
 var ctx3 = canvas3.getContext("2d");
+var flags=0;
 var WIDTH1 = canvas3.width;
 var HEIGHT1 = canvas3.height;
 var BALL_RADIUS1 = 30;
@@ -194,18 +195,23 @@ class HockeyGame {
   update() {
     
   	if (this.ball1.y<0) {
+        if(flag ==0){
+            flag=1;
+            cancelAnimationFrame(mainLoop2);
+            showclearPage(1);
+            $("#clearBtn").trigger("click");
+            console.log("player1 win")};
+        }
         
-        cancelAnimationFrame(mainLoop2);
-        showclearPage(1);
-        $("#clearBtn").trigger("click");
-        console.log("player1 win")};
   	if (this.ball1.y > HEIGHT1) {
-        
-        cancelAnimationFrame(mainLoop2);
-        showclearPage(0);
-        $("#backtostoryBtn").trigger("click");
-        console.log("player2 win")}
-        ;
+        if(flag==0){
+            flag =1;
+            cancelAnimationFrame(mainLoop2);
+            showclearPage(0);
+            $("#backtostoryBtn").trigger("click");
+            console.log("player2 win");
+        }
+    }
     if (this.state == "start") {
       this.timeCount++;
     if (this.timeCount >= 100) this.state = "play";
