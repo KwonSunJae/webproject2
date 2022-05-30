@@ -231,7 +231,7 @@ var ch =0;
 var flag =0;
 var temp =0;
 function startGame2(no) {
-    socket = io.connect('http://localhost:3000');
+    socket = io.connect('http://133.186.209.203:3000');
     
     socket.on('keyDown',function(data){
         if(ch%2==1){
