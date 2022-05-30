@@ -15,7 +15,8 @@ var COLOR1 = "dodgerblue";
 var socket;
 var keys1 = { left: false, right: false, a :false, d:false };
 var hockeystickimg = new Array();
-
+var hockeybackgroundimg = new Image();
+hockeybackgroundimg.src = 'image_src/hockey_background.jpg';
 for (var i = 0; i < 2; i++) {
 	hockeystickimg[i] = new Image();
 }
@@ -95,7 +96,13 @@ class HockeyBall {
     if (this.my > 0) return this.y + this.radius;
     else return this.y - this.radius;
   }
-
+ change_position_gage_wrapper(obj){
+    var cx = $("#pageBox").offset().left;
+    var cy = $("#pageBox").offset().top;
+    cx = cx+100;
+    cy = cy -34;
+    obj.css({left: cx, top: cy});
+    }
   collideWall(left, top, right,bottom) {
     if (this.mx < 0 && this.collideX < left) this.mx *= -1;
     if (this.mx > 0 && this.collideX > right) this.mx *= -1;
@@ -105,6 +112,7 @@ class HockeyBall {
 
   draw(ctx) {
     ctx3.drawImage(hockeyballimg, this.x-this.radius,this.y-this.radius,this.radius*2,this.radius*2);
+    this.change_position_gage_wrapper($("#game2wrapper"));
    }
 }
 
@@ -186,8 +194,13 @@ class HockeyGame {
 
   update() {
     
-  	if (this.ball1.y<0) {console.log("player1 win")};
-  	if (this.ball1.y > HEIGHT1) {console.log("player2 win")};
+  	if (this.ball1.y<0) {
+        $("#backtostoryBtn").trigger("click");
+        console.log("player1 win")};
+  	if (this.ball1.y > HEIGHT1) {
+        $("#backtostoryBtn").trigger("click");
+        console.log("player2 win")}
+        ;
     if (this.state == "start") {
       this.timeCount++;
     if (this.timeCount >= 100) this.state = "play";
@@ -212,7 +225,7 @@ class HockeyGame {
   draw() {
 
     ctx3.clearRect(0, 0, WIDTH1, HEIGHT1);  
- 
+    ctx3.drawImage(hockeybackgroundimg,0,0,WIDTH1,HEIGHT1);
     
     this.paddle1.draw(ctx3);
     this.paddle2.draw(ctx3);

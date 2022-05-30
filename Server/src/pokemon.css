@@ -26,6 +26,24 @@ body{
     left: 280px;
     border:  7px solid black;
 }
+#game2wrapper{
+    display: none;
+    width: 500px;
+    height: 30px;
+    position: fixed;
+    top: 400px;
+    left: 280px;
+    background-color: white;
+    border:  7px solid black;
+}
+#wrapper_gage h1{
+    font-size: 23px;
+    position: relative;
+    left: 130px;
+    bottom: 10px;
+    display: inline-block;
+    margin-top: 0;  
+}
 #wrapper_gage{
     display: none;
     width: 500px;

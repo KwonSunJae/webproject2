@@ -507,6 +507,7 @@ $(document).ready(function () {
         $("#restartPage").hide();
         $("#clearPage").hide();
         $("#gamePage").hide();
+        $("#game2").hide();
         clearInterval(playstory);
         $("#myCanvas").hide();
         showStoryPage();
@@ -639,6 +640,7 @@ $(document).ready(function () {
 function nextBtnClicked() {
     hidechPage();
     //showGamePage();
+    //multistart();
     showStoryPage();
     //hideOptionBtn();
     hideBackBtn();
@@ -673,6 +675,12 @@ function pokemonselect(a, b) {
 }
 function multistart(){
     //showGamePage();
+    $("#pageBox").css({
+            width: 500,
+            height: 500,
+            left: 480
+        });
+    //$("#game2wrapper").show();
     hideOptionBtn();
     $("#restartPage").hide();
     $("#clearPage").hide();
