@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet"  href="pokemon.css">
+	<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script defer src="pokemon.js"></script>
+	<script defer src="test.js"></script>
+	
+</head>
+<body>
+
+	<div id="all_audio">
+	<audio id='bg-audio'src="sound_src/bg-music.mp3" volume="0.1" autoplay loop="true"></audio>
+	<audio id="battle_audio" src="sound_src/game_audio.mp3" autoplay loop = "true"></audio>
+	<audio id="brick_audio" src="sound_src/brick_audio.mp3"></audio>
+	<audio id="skill_audio_fire" src="sound_src/Fire Spin.mp3"></audio>
+	<audio id="skill_audio_water" src="sound_src/Water Gun.mp3"></audio>
+	<audio id="skill_audio_leaf" src="sound_src/Razor Leaf.mp3"></audio>
+	<audio id="enemy_skill_audio1" src="sound_src/Rock Blast 1hit.mp3"></audio>
+	<audio id="enemy_skill_audio2" src="sound_src/Soft Boiled.mp3"></audio>
+	<audio id="clear_audio" src="sound_src/victory.mp3"></audio>
+	</div>
+
+	<div id="game_border">
+
+	<!--게임기 이미지-->
+	<div id="wrapper_gage">
+	<img src = 'image_src/gage_0.png' id="gage0">
+	<img src = 'image_src/gage_0.5.png' id="gage05">
+	<img src = 'image_src/gage_1.png' id="gage1">
+	<img src = 'image_src/gage_2.png' id="gage2">
+	<img src = 'image_src/gage_3.png' id="gage3">
+	<img src = 'image_src/gage_4.png' id="gage4">
+	<h1 id="score_restart_p">Score :</h1>
+
+	<img src = 'image_src/heart.png' id="life1">
+	<img src = 'image_src/heart.png' id="life2">
+	<img src = 'image_src/heart.png' id="life3">
+	</div>
+	<!--게임 화면-->
+	<div id="pageBox">
+   	 	<button id="optionBtn"><img src="image_src/setting.png" ></button>
+   	 	<button id="backBtn" class="h
+   	 	<!--시작화면-->ide" ><img src="image_src/back_nobg.png"></button>
+
+   	 	<div id="startPage">
+   	 		<button id="startBtn"><img src="image_src/play_nobg.png" width="50px"></button>
+   	 	</div>
+   	 	<!--캐릭터 선택화면-->
+   	 	<div id="chPage" class="hide">
+   	 		<h1>캐릭터를 선택하세요</h1>
+   	 		<div id="charImgs">
+            	<img class="charSelectImg" src="src/big5.PNG"  id="char1">
+                <img class="charSelectImg" src="src/smal5.PNG"  id="char2">
+                
+            </div>
+            
+            <button id="nextBtn" ><img src="image_src/go_nobg.png"></button>
+   	 	</div>
+   	 	<!--난이도 선택 화면-->
+
+   	 	<!--환경설정 화면-->
+   	 	<div id="optionPage" class="hide">
+   	 		<h1>환경설정</h1>
+   	 		<h2>BGM ON/OFF </h2>
+   	 		<button class="audio hide" ><img src="image_src/mute.png"></button>
+   	 		<button class="audio" ><img src="image_src/musicOn.png" ></button>
+   	 		<h2>공 종류 선택</h2>
+   	 		<img class="difficulty_img" src="image_src/normalball.png" id="ball1">
+            <img class="difficulty_img" src="image_src/hyperball.png" id="ball2">
+            <img class="difficulty_img" src="image_src/masterball.png" id="ball3">
+   	 	</div>
+
+   	 	<!--게임 화면-->
+   	 	<div id="gamePage" >
+   	 		<canvas id="myCanvas" width="1920" height="1080">	
+   	 		</canvas>
+   	 		<div id="restartPage"  >
+   	 				<h1>Game Over!</h1>
+   	 				<img src="image_src/nextBtn.png" id="restartBtn">
+   	 				<img src="image_src/nextBtn.png" id="backtostoryBtn" >
+   	 		</div>
+   	 		<div id="clearPage"  >
+   	 				<h1>Clear</h1>
+   	 				<img src="image_src/nextBtn.png" id="clearBtn">
+   	 		</div>
+
+
+   	 	</div>
+			
+		<div id = "storyPage" >
+			<canvas id="myCanvas2" ></canvas>
+
+			<img src="./image_src/map1.jpg" width="700px" height="30px"/>
+		</div>
+    </div>
+
+    <!--타이틀(아래) 화면-->
+    <!--
+	<div id="title">
+
+		<img src="image_src/title_sample.png" id="title_sample_img">
+
+		<img src="image_src/nextBtn.png" id="introduceBtn" onclick="introduce_popup();">
+
+		<img src="image_src/nextBtn.png" class="creditBtn" onclick="credit_popup();">
+
+		팝업화면
+		<div id="popup">
+			
+			<img id="popup_close_img" src="image_src/nextBtn.png" onclick="close_popup();">
+		</div>
+
+
+	</div>-->
+	</div>
+
+</body>
+</html>
