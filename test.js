@@ -785,6 +785,7 @@ function mainLoop() {
       //showclearPage(1);
       if(flag ==0){
         cancelAnimationFrame(mainLoop);
+      console.log("clear");
       flag =1;
       showclearPage(1);
       $("#clearBtn").trigger("click");
