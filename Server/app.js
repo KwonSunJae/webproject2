@@ -31,7 +31,7 @@ var static =require("serve-static");
 var router=require("express").Router();
 
 router.route("/").get(function(req,res){
-    res.redirect("http://localhost:3000/src/pokemon.html");
+    res.redirect("http://133.186.209.203:3000/src/pokemon.html");
 });
 
 router.route("/routetest").get(function(req,res){
@@ -63,7 +63,7 @@ io.on('connection', (socket) => {
   });
 //기본 속성 설정
 app.set("port",process.env.PORT||3000);
-app.set("host","127.0.0.1"); //루프백
+app.set("host","133.186.209.203"); //루프백
 
 //웹 폴더에 저장된 모든 웹 페이지에 대한 정적 참조 허용
 app.use(static(__dirname)); //현재 폴더에 대한 정적 접근
