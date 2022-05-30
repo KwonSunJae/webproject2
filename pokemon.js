@@ -247,7 +247,7 @@ function init(){
         charimg2[i].src = char+"dr"+(i+1).toString()+".PNG";
         //console.log(charimg2[i].src);
     }
-    for(var i =0; i<21; i++){
+    for(var i =0; i<33; i++){
         dialog[i] = new Image;
         dialog[i].src = "./dialog/"+(i+1).toString()+".png";
     }
@@ -431,6 +431,14 @@ $(document).ready(function(){
         pokemonselect(player.pocket,difficulty);
     });  
     $("#backtostoryBtn").on("click",function(){
+        var flag=0;
+        for(var i =0; i<3; i++){
+            if(clear[i+1]==1){
+                flag =flag+1;
+                
+            }
+
+        }
         $("#myCanvas").hide();
         $("#restartPage").hide();
         $("#clearPage").hide();
@@ -446,15 +454,26 @@ $(document).ready(function(){
         change_position($("pageBox"));
         drawCharacter(player);
         setTimeout(function(){
-            
-            ctx2.drawImage(dialog[18], 0,0,  dialog[18].width,dialog[18].height,   370,  140,   dialog[18].width/3,dialog[18].height/3);
+            drawCharacter(player);
+            ctx2.drawImage(dialog[22], 0,0,  dialog[22].width,dialog[22].height,   370,  140,   dialog[22].width/3,dialog[22].height/3);
             setTimeout(function(){
+                if(flag!=0){
+                    drawCharacter(player);
+                    console.log(flag);
+                    ctx2.drawImage(dialog[22+flag], 0,0,  dialog[22+flag].width,dialog[22+flag].height,   370,  140,   dialog[22+flag].width/3,dialog[22+flag].height/3);
+                
+                }
+                else{
+                    ctx2.drawImage(dialog[30], 0,0,  dialog[30].width,dialog[30].height,   370,  140,   dialog[30].width/3,dialog[30].height/3);
+                
+                }
+
                 setTimeout(function(){
-                    console.log("test");
                     //playstory= setInterval(loop,80);
+                    
                 },3000);
                 
-            })
+            },3000);
         }, 3000);
         life = 3;
         score =0;
@@ -468,10 +487,14 @@ $(document).ready(function(){
     $("#clearPage").hide();
         clear[difficulty] =1;
         var flag=1;
+        var count =0;
         for(var i =0; i<3; i++){
             if(clear[i+1]==0){
                 flag =0;
-                break;
+                
+            }
+            else{
+                count+=1;
             }
 
         }
@@ -485,9 +508,55 @@ $(document).ready(function(){
         $("#pageBox").css({width:700,height:400,left:480});
         $("#wrapper_gage").hide();
         $("#gametop").hide();
+        
         if(flag){
+            setTimeout(function(){
+                drawCharacter(player);
+                ctx2.drawImage(dialog[22], 0,0,  dialog[22].width,dialog[22].height,   370,  140,   dialog[22].width/3,dialog[22].height/3);
+                setTimeout(function(){
+                    if(flag!=0){
+                        drawCharacter(player);
+                        console.log(flag);
+                        ctx2.drawImage(dialog[22+flag], 0,0,  dialog[22+flag].width,dialog[22+flag].height,   370,  140,   dialog[22+flag].width/3,dialog[22+flag].height/3);
+                    
+                    }
+                    else{
+                        ctx2.drawImage(dialog[30], 0,0,  dialog[30].width,dialog[30].height,   370,  140,   dialog[30].width/3,dialog[30].height/3);
+                    
+                    }
+    
+                    setTimeout(function(){
+                        //playstory= setInterval(loop,80);
+                        
+                    },3000);
+                    
+                },3000);
+            }, 3000);
 
-
+        }
+        else{
+            setTimeout(function(){
+                drawCharacter(player);
+                ctx2.drawImage(dialog[21], 0,0,  dialog[21].width,dialog[21].height,   370,  140,   dialog[21].width/3,dialog[21].height/3);
+                setTimeout(function(){
+                    if(count!=0){
+                        drawCharacter(player);
+                        console.log(count);
+                        ctx2.drawImage(dialog[22+count], 0,0,  dialog[22+count].width,dialog[22+count].height,   370,  140,   dialog[22+count].width/3,dialog[22+count].height/3);
+                    
+                    }
+                    else{
+                        ctx2.drawImage(dialog[30], 0,0,  dialog[30].width,dialog[30].height,   370,  140,   dialog[30].width/3,dialog[30].height/3);
+                    
+                    }
+    
+                    setTimeout(function(){
+                        //playstory= setInterval(loop,80);
+                        
+                    },3000);
+                    
+                },3000);
+            }, 3000);
         }
         life = 3;
         score_total += score;
@@ -602,6 +671,14 @@ function showclearPage( i ){
     $("#restartPage").hide();
     $("#clearPage").hide();
     if(i ==0){
+        var flag=0;
+        for(var i =0; i<3; i++){
+            if(clear[i+1]==1){
+                flag =flag+1;
+                
+            }
+
+        }
         $("#gamePage").hide();
         clearInterval(playstory);
         $("#myCanvas").hide();
@@ -614,14 +691,20 @@ function showclearPage( i ){
         change_position($("pageBox"));
         drawCharacter(player);
         setTimeout(function(){
-            
-            ctx2.drawImage(dialog[18], 0,0,  dialog[18].width,dialog[18].height,   370,  140,   dialog[18].width/3,dialog[18].height/3);
+            drawCharacter(player);
+            ctx2.drawImage(dialog[21], 0,0,  dialog[21].width,dialog[21].height,   370,  140,   dialog[21].width/3,dialog[21].height/3);
             setTimeout(function(){
+                if(flag!=0){
+                    drawCharacter(player);
+                    console.log(flag);
+                    ctx2.drawImage(dialog[22+flag], 0,0,  dialog[22+flag].width,dialog[22+flag].height,   370,  140,   dialog[22+flag].width/3,dialog[21].height/3);
+                
+                }
                 setTimeout(function(){
                     playstory= setInterval(loop,80);
                 },3000);
                 
-            })
+            },3000);
         }, 3000);
         life = 3;
         score =0;
