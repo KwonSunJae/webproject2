@@ -80,10 +80,13 @@ var playstory;
 var interval;
 
 function opening() {
-    //interval= setInterval(keep,80);
-    playstory = setInterval(loop, 80);
+    interval= setInterval(keep,80);
+    //playstory = setInterval(loop, 80);
 }
 
+function ending(){
+    interval = setInterval(keep2,80);
+}   
 
 
 function coming_droh() {
@@ -91,6 +94,13 @@ function coming_droh() {
     droh.y -= droh.speed;
     //ctx.clearRect(0,0,canvas.width,canvas.height);
     droh.direction = 9;
+    droh.type = (droh.type + 1) % 3;
+}
+function coming_droh2() {
+    console.log(droh.y);
+    droh.y += droh.speed;
+    //ctx.clearRect(0,0,canvas.width,canvas.height);
+    droh.direction = 3;
     droh.type = (droh.type + 1) % 3;
 }
 // create  player instance
@@ -242,6 +252,16 @@ function drawCharacter2(player) {
     //console.log(player.direction+player.type);
     ctx2.drawImage(charimg2[player.direction + player.type], 0, 0, charimg2[player.direction + player.type].width, charimg2[player.direction + player.type].height, 315, 165, 70, 70);
     ctx2.drawImage(charimg[4], 0, 0, charimg[player.direction + player.type].width, charimg[player.direction + player.type].height, 315, 165 - (player.y - 850), 70, 70);
+    //ctx.drawImage(charimg2[player.direction+player.type],0,0,150,150,315,165,70,70);
+
+}
+function drawCharacter3(player) {
+
+
+    ctx2.drawImage(map, player.x - 350 + 35, player.y - 200 + 35, 700, 400, 0, 0, 700, 400);
+    //console.log(player.direction+player.type);
+    ctx2.drawImage(charimg2[player.direction + player.type], 0, 0, charimg2[player.direction + player.type].width, charimg2[player.direction + player.type].height, 315, 165, 70, 70);
+    ctx2.drawImage(charimg[10], 0, 0, charimg[player.direction + player.type].width, charimg[player.direction + player.type].height, 315, 165 - (player.y - 1460), 70, 70);
     //ctx.drawImage(charimg2[player.direction+player.type],0,0,150,150,315,165,70,70);
 
 }
@@ -559,31 +579,12 @@ $(document).ready(function () {
         $("#gametop").hide();
 
         if (flag) {
-            setTimeout(function () {
-                drawCharacter(player);
-                ctx2.drawImage(dialog[22], 0, 0, dialog[22].width, dialog[22].height, 370, 140, dialog[22].width / 3, dialog[22].height / 3);
-                setTimeout(function () {
-                    drawCharacter(player);
-                    if (flag != 0) {
-                        drawCharacter(player);
-                        console.log(flag);
-                        ctx2.drawImage(dialog[22 + flag], 0, 0, dialog[22 + flag].width, dialog[22 + flag].height, 370, 140, dialog[22 + flag].width / 3, dialog[22 + flag].height / 3);
-
-                    } else {
-                        ctx2.drawImage(dialog[30], 0, 0, dialog[30].width, dialog[30].height, 370, 140, dialog[30].width / 3, dialog[30].height / 3);
-
-                    }
-
-                    setTimeout(function () {
-                        playstory= setInterval(loop,80);
-                        console.log("s");
-
-                    }, 3000);
-
-                }, 3000);
-            }, 1000);
+            clearInterval(playstory);
+            droh.y = 1290;
+            ending();
 
         } else {
+            clearInterval(playstory);
             setTimeout(function () {
                 drawCharacter(player);
                 ctx2.drawImage(dialog[21], 0, 0, dialog[21].width, dialog[21].height, 370, 140, dialog[21].width / 3, dialog[21].height / 3);
@@ -899,6 +900,7 @@ function changeBGM() {
     } else {
         $("#bg-audio").get(0).pause();
     }
+
 }
 
 function playBGM(target) {
@@ -1136,8 +1138,8 @@ function keep() {
 
                                                                                 ctx2.drawImage(dialog[j], 0, 0, dialog[j].width, dialog[j].height, 330, 130, dialog[j].width / 3, dialog[j].height / 3);
                                                                                 setTimeout(function () {
-                                                                                    playstory = setTimeout(setInterval(loop, 80), 3000);
-                                                                                }, 1000);
+                                                                                    playstory = setInterval(loop, 80);
+                                                                                }, 3000);
 
                                                                             }, 3000);
                                                                         }, 3000);
@@ -1152,6 +1154,87 @@ function keep() {
                                         }, 3000);
                                     }, 3000);
                                 }, 3000);
+                            }, 3000);
+                        }, 3000);
+                    }, 3000);
+
+                }, 3000);
+            }, 3000);
+
+        }, 1000);
+
+        // setTimeout(function(){
+        //     var i =3;
+        //     drawCharacter2(droh);
+        //     console.log('22222');
+
+        //     ctx.drawImage(dialog[i], 0,0,  dialog[i].width,dialog[i].height,   240,  70,   dialog[i].width/3,dialog[i].height/3);
+        // },3000);
+    }
+}
+
+function keep2() {
+    console.log("keep2 ");
+    
+    droh.x = player.x;
+    droh.speed= 3;
+    player.y = 1460;
+    coming_droh2();
+    drawCharacter3(droh);
+    ctx2.drawImage(charimg[10], 0, 0, charimg[player.direction + player.type].width, charimg[player.direction + player.type].height, 315, 165 - (droh.y - 1460), 70, 70);
+
+    if (droh.y >= 1360) {
+        clearInterval(interval);
+        drawCharacter3(droh);
+        setTimeout(function () {
+            droh.type = 1;
+            drawCharacter3(droh);
+
+            console.log('sssss');
+            console.log(dialog[0].width / 3);
+            ctx2.drawImage(dialog[25], 0, 0, dialog[25].width, dialog[25].height, 330, 130, 150, 60);
+            ctx2.drawImage(charimg[10], 0, 0, charimg[player.direction + player.type].width, charimg[player.direction + player.type].height, 315, 165 - (droh.y - 1460), 70, 70);
+    
+            setTimeout(function () {
+                droh.type = 1;
+                drawCharacter3(droh);
+
+                console.log('22222');
+
+                ctx2.drawImage(dialog[26], 0, 0, dialog[26].width, dialog[26].height, 330, 130, dialog[26].width / 3, dialog[26].height / 3);
+                ctx2.drawImage(charimg[10], 0, 0, charimg[player.direction + player.type].width, charimg[player.direction + player.type].height, 315, 165 - (droh.y - 1460), 70, 70);
+    
+                setTimeout(function () {
+                    droh.type = 1;
+                    drawCharacter3(droh);
+                    console.log('22222');
+
+                    ctx2.drawImage(dialog[27], 0, 0, dialog[27].width, dialog[27].height, 330, 130, dialog[27].width / 3, dialog[27].height / 3);
+                    ctx2.drawImage(charimg[10], 0, 0, charimg[player.direction + player.type].width, charimg[player.direction + player.type].height, 315, 165 - (droh.y - 1460), 70, 70);
+    
+                    setTimeout(function () {
+                        var i = 28;
+                        drawCharacter3(droh);
+                        console.log('22222');
+
+                        ctx2.drawImage(dialog[i], 0, 0, dialog[i].width, dialog[i].height, 330, 130, dialog[i].width / 3, dialog[i].height / 3);
+                        ctx2.drawImage(charimg[10], 0, 0, charimg[player.direction + player.type].width, charimg[player.direction + player.type].height, 315, 165 - (droh.y - 1460), 70, 70);
+    
+                        setTimeout(function () {
+                            var j = 29;
+                            drawCharacter3(droh);
+                            console.log('22222');
+
+                            
+                            ctx2.drawImage(dialog[j], 0, 0, dialog[j].width, dialog[j].height, 330, 130, dialog[j].width / 3, dialog[j].height / 3);
+                            ctx2.drawImage(charimg[10], 0, 0, charimg[player.direction + player.type].width, charimg[player.direction + player.type].height, 315, 165 - (droh.y - 1460), 70, 70);
+    
+                            setTimeout(function () {
+                                var j = 5;
+                                drawCharacter3(droh);
+                                console.log('22222');
+
+                                
                             }, 3000);
                         }, 3000);
                     }, 3000);
