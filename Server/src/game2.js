@@ -194,13 +194,13 @@ class HockeyGame {
   update() {
     
   	if (this.ball1.y<0) {
-        socket.emit('disconnect',"bye");
+        
         cancelAnimationFrame(mainLoop2);
         showclearPage(1);
         $("#clearBtn").trigger("click");
         console.log("player1 win")};
   	if (this.ball1.y > HEIGHT1) {
-        socket.emit('disconnect',"bye");
+        
         cancelAnimationFrame(mainLoop2);
         showclearPage(0);
         $("#backtostoryBtn").trigger("click");
