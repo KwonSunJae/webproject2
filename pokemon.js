@@ -2,7 +2,7 @@ var audio_cond = true;
 var ch_choose=1;
 var difficulty=1;
 const arr_sound = [];
-
+var clear=[0,0,0,0];
 var page;
 var audio_volume = 5;
 var ball_selected = 'image_src/pokeball.png';
@@ -17,6 +17,7 @@ var eve;
 var keys={};
 var charimg =[];
 var charimg2 = [];
+var pockimg=[];
 var dialog=[];
 var map;
 var Players = function(options){
@@ -56,7 +57,7 @@ var player = new Players({
 });
 
 
-function start( a){
+function start(a){
     canvas2 = document.getElementById('myCanvas2');
     ctx2 = canvas2.getContext("2d");
     canvas2.width = 700;
@@ -75,11 +76,11 @@ function start( a){
 
 }
 
-
+var playstory;
 var interval;
 function opening(){
-    interval= setInterval(keep,80);
-    
+    //interval= setInterval(keep,80);
+    playstory = setInterval(loop,80);
 }
 
 
@@ -98,9 +99,37 @@ function input(player){
 if($("#storyPage").css("display") == "block"){
     if(32 in keys){
         
-        if(player.x>=740&&player.y<=790&& player.y>=700&&player.y <=800) {player.pocket =1;pokemonselect(player.pocket,1);}//포켓몬 종류하고 레벨 인자로 받기 (나중에 위치바꿈)
-        if(player.x>=800&&player.x<=850&& player.y>=700&&player.y <=800) {player.pocket =2;pokemonselect(player.pocket,2);}
-        if(player.x>=860&&player.x<=910&& player.y>=700&&player.y <=800) {player.pocket =3;pokemonselect(player.pocket,3);}
+        if(player.x>=740&&player.y<=790&& player.y>=700&&player.y <=800) {player.pocket =1;}//포켓몬 종류하고 레벨 인자로 받기 (나중에 위치바꿈)
+        if(player.x>=800&&player.x<=850&& player.y>=700&&player.y <=800) {player.pocket =2;}
+        if(player.x>=860&&player.x<=910&& player.y>=700&&player.y <=800) {player.pocket =3;}
+
+        if(player.x>=270&&player.x<=330&&player.y>=1380&&player.y<=1400){
+            pokemonselect(player.pocket,1);
+            difficulty = 1;
+            change_position($("#gametop"));
+            $("#pageBox").css({width: 500, height:560, top: 100}) ;
+            $("#gametop").css({top:0});
+            change_position($("#pageBox"));
+        }
+        if(player.x>=1310&&player.x<=1390&&player.y>=1290&&player.y<=1330){
+        pokemonselect(player.pocket,3);
+        difficulty=3;
+        change_position($("#gametop"));
+        $("#pageBox").css({width: 500, height:560, top: 100}) ;
+        
+        $("#gametop").css({top:0});
+            change_position($("#pageBox"));
+        
+    }
+        if(player.x>=450&&player.x<=540&&player.y>=520&&player.y<=550){
+            difficulty=2;
+            pokemonselect(player.pocket,2);
+            change_position($("#gametop"));
+            $("#pageBox").css({width: 500, height:560, top: 100}) ;
+            $("#gametop").css({top:0});
+            change_position($("#pageBox"));
+        }
+        
         console.log(player.pocket);
     }
 
@@ -163,7 +192,7 @@ function drawCharacter(player){
     if(player.x-350+35 <= 0 || player.y - 200 + 35 <=0 ||player.x +350 - 35>=1700|| player.y +200 - 35 >= 1700 ){
         ctx2.drawImage(map,player.x-350+35 <= 0?0:player.x-350+35,player.y - 200 + 35 <=0?0:player.y - 200 + 35,700,400,0,0,700,400);
         if(player.pocket!=0){
-            ctx2.drawImage(player.pocket==1?pica:eve,305,155);
+            ctx2.drawImage(pockimg[player.pocket-1],0,0,pockimg[player.pocket-1].width,pockimg[player.pocket-1].height,305,155,50,50);
         }
         ctx2.drawImage(charimg[player.direction+player.type],0,0,charimg[player.direction+player.type].width,charimg[player.direction+player.type].height,player.x-350+35 <= 0?player.x:315,player.y - 200 + 35 <=0?player.y:165,70,70);
         return;
@@ -171,7 +200,7 @@ function drawCharacter(player){
     
     ctx2.drawImage(map,player.x-350+35,player.y - 200 + 35,700,400,0,0,700,400);
     if(player.pocket!=0){
-        ctx2.drawImage(player.pocket==1?pica:eve,305,155);
+        ctx2.drawImage(pockimg[player.pocket-1],0,0,pockimg[player.pocket-1].width,pockimg[player.pocket-1].height,305,155,50,50);
     }
     ctx2.drawImage(charimg[player.direction+player.type],0,0,charimg[player.direction+player.type].width,charimg[player.direction+player.type].height,315,165,70,70);
 }
@@ -205,10 +234,11 @@ function loop(){
 }
 
 function init(){
-    pica = new Image;
-    eve = new Image;
-    pica.src = char+'1'+'.png';
-    eve.src = char+'2'+'.PNG';
+    
+    for(var i =0; i<3; i++){
+        pockimg[i] = new Image;
+        pockimg[i].src = char+"charimg"+(i+1).toString()+".webp";
+    }
     for(var i =0; i<12; i++){
         charimg[i] = new Image;
         charimg[i].src = char+selected_character+(i+1).toString()+".PNG";
@@ -217,7 +247,7 @@ function init(){
         charimg2[i].src = char+"dr"+(i+1).toString()+".PNG";
         //console.log(charimg2[i].src);
     }
-    for(var i =0; i<18; i++){
+    for(var i =0; i<21; i++){
         dialog[i] = new Image;
         dialog[i].src = "./dialog/"+(i+1).toString()+".png";
     }
@@ -227,7 +257,15 @@ function init(){
     
     
 }
+function change_position(obj){
+    var l = ($(window).width() - obj.width())/2;
+    var t = ($(window).height() - obj.height())/2;
 
+    obj.css({left: l});
+    l = l-10;
+    $("#pageBox").css({left: l});
+    $("#title").css({left: l});
+}
 
 //화면 중앙유지 구현
 $(document).ready(function(){
@@ -364,6 +402,7 @@ $(document).ready(function(){
              page = "chPage";
         }   
         showOption();
+        showBackBtn();
     });
     $(".audio").eq(0).on("click",function(){
         playBGM();
@@ -389,15 +428,34 @@ $(document).ready(function(){
         var intext = "Score : "+score;
         $("#score_restart_p").html(intext);
         $("#myCanvas").show();
-        pokemonselect(player.pocket,3);
+        pokemonselect(player.pocket,difficulty);
     });  
     $("#backtostoryBtn").on("click",function(){
+        $("#myCanvas").hide();
+        $("#restartPage").hide();
+        $("#clearPage").hide();
         $("#gamePage").hide();
+        clearInterval(playstory);
         $("#myCanvas").hide();
         showStoryPage();
         changeBGM();
         showOptionBtn();
         $("#wrapper_gage").hide();
+        $("#gametop").hide();
+        $("#pageBox").css({width:700,height:400,left:480});
+        change_position($("pageBox"));
+        drawCharacter(player);
+        setTimeout(function(){
+            
+            ctx2.drawImage(dialog[18], 0,0,  dialog[18].width,dialog[18].height,   370,  140,   dialog[18].width/3,dialog[18].height/3);
+            setTimeout(function(){
+                setTimeout(function(){
+                    console.log("test");
+                    //playstory= setInterval(loop,80);
+                },3000);
+                
+            })
+        }, 3000);
         life = 3;
         score =0;
         var intext = "Score : "+score;
@@ -405,13 +463,32 @@ $(document).ready(function(){
         skill_gage =0;
     }); 
     $("#clearBtn").on("click",function(){
+    $("#myCanvas").hide();
+    $("#restartPage").hide();
+    $("#clearPage").hide();
+        clear[difficulty] =1;
+        var flag=1;
+        for(var i =0; i<3; i++){
+            if(clear[i+1]==0){
+                flag =0;
+                break;
+            }
+
+        }
+        
         $("#gamePage").hide();
         $("#myCanvas").hide();
         $("#clearPage").hide();
         showStoryPage();
         changeBGM();
         showOptionBtn();
+        $("#pageBox").css({width:700,height:400,left:480});
         $("#wrapper_gage").hide();
+        $("#gametop").hide();
+        if(flag){
+
+
+        }
         life = 3;
         score_total += score;
         skill_gage =0;
@@ -452,25 +529,38 @@ function pokemonselect(a,b){
     hideOptionBtn();
     $("#restartPage").hide();
     $("#clearPage").hide();
+    $("#save_pokemons").fadeIn("slow"
+    );
+    if (b==1) {
+        $("#save_pokemons").attr("src","./image_src/save_ev.jpg");
+    }
+    else if (b==2) {
+        $("#save_pokemons").attr("src","./image_src/save_pikachu.jpg");
+    }
+    else{
+        $("#save_pokemons").attr("src","./image_src/save_obaksa.jpg");
+    }
     $("#myCanvas").show();
     ch_choose = a;
     difficulty = b;
     startGame(0);
     hideStoryPage();
     changeBGM();
-
-    $("#wrapper_gage").show();
+    $("#gametop").fadeIn("slow");
+    $("#wrapper_gage").fadeIn("slow");
 }
 function hideStoryPage(){
-    $("#storyPage").hide();
+    $("#storyPage").fadeOut("slow");
+    $("#storyPage").css({display:"none"});
 }
 function showStoryPage(){
-    $("#storyPage").show();
+    $("#storyPage").fadeIn("slow");
+    $("#storyPage").css({display:"block"});
+
 }
 function startBtnClicked(){
 	hideStartPage();
 	showNextPage();
-	showBackBtn();
 	playSong();
 }
 function hideOptionBtn(){
@@ -480,7 +570,7 @@ function showOptionBtn(){
     $("#optionBtn").show();
 }
 function showGamePage(){
-    $("#gamePage").show();
+    $("#gamePage").fadeIn("slow");
 }
 function hideStartPage(){
     $("#startPage").addClass("hide");
@@ -495,10 +585,10 @@ function showStartPage(){
 	 $("#startPage").removeClass("hide");
 }
 function showBackBtn(){
-    $("#backBtn").removeClass("hide");
+    $("#backBtn").show();
 }
 function hideBackBtn(){
-    $("#backBtn").addClass("hide");
+    $("#backBtn").hide();
 }
 function hiderestartPage(){
     $("#restartPage").hide();
@@ -507,9 +597,66 @@ function showrestartPage(){
     $("#myCanvas").hide();
     $("#restartPage").show();
 }
-function showclearPage(){
+function showclearPage( i ){
     $("#myCanvas").hide();
-    $("#clearPage").show();
+    $("#restartPage").hide();
+    $("#clearPage").hide();
+    if(i ==0){
+        $("#gamePage").hide();
+        clearInterval(playstory);
+        $("#myCanvas").hide();
+        showStoryPage();
+        changeBGM();
+        showOptionBtn();
+        $("#wrapper_gage").hide();
+        $("#gametop").hide();
+        $("#pageBox").css({width:700,height:400,left:480});
+        change_position($("pageBox"));
+        drawCharacter(player);
+        setTimeout(function(){
+            
+            ctx2.drawImage(dialog[18], 0,0,  dialog[18].width,dialog[18].height,   370,  140,   dialog[18].width/3,dialog[18].height/3);
+            setTimeout(function(){
+                setTimeout(function(){
+                    playstory= setInterval(loop,80);
+                },3000);
+                
+            })
+        }, 3000);
+        life = 3;
+        score =0;
+        var intext = "Score : "+score;
+        $("#score_restart_p").html(intext);
+        skill_gage =0;
+    }
+    else{
+        clear[difficulty] =1;
+        var flag=1;
+        for(var i =0; i<3; i++){
+            if(clear[i+1]==0){
+                flag =0;
+                break;
+            }
+
+        }
+        
+        $("#gamePage").hide();
+        $("#myCanvas").hide();
+        $("#clearPage").hide();
+        showStoryPage();
+        changeBGM();
+        showOptionBtn();
+        $("#pageBox").css({width:700,height:400,left:480});
+        $("#wrapper_gage").hide();
+        $("#gametop").hide();
+        if(flag){
+            
+
+        }
+        life = 3;
+        score_total += score;
+        skill_gage =0;
+    }
 }      
 function changenum1(){
    $("#char1").css({border:"3px solid red","border-radius" :"10px"});
@@ -815,7 +962,9 @@ function keep(){
                                                                                 console.log('22222');
                                                                                 
                                                                                 ctx2.drawImage(dialog[j], 0,0,  dialog[j].width,dialog[j].height,   330,  130,   dialog[j].width/3,dialog[j].height/3);
-                                                                                setTimeout(setInterval(loop, 80),3000);
+                                                                                setTimeout(function(){
+                                                                                    playstory = setTimeout(setInterval(loop, 80),3000);
+                                                                                },1000);
                                                                                
                                                                             },3000);
                                                                         },3000);

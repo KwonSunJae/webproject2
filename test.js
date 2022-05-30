@@ -13,6 +13,7 @@ var score_total =0;
 var enemy_idx =0;
 var balling2 = new Image();
 balling2.src = ball_selected;
+
 var ballimg = new Array();
 var completeimg = new Image();
 completeimg.src = 'image_src/complete.jpeg';
@@ -37,9 +38,9 @@ for (var i = 0; i < 4; i++) {
 enemy_skill[0].src = 'image_src/digda_skill_effect.png';
 enemy_skill[1].src = 'image_src/ghost_skill_effect.png';
 
-backgroundimage[0].src = 'image_src/ocean_background.png';
-backgroundimage[1].src = 'image_src/cave_background.png';
-backgroundimage[2].src = 'image_src/ghost_background.png';
+backgroundimage[0].src = 'image_src/ocean_background.jpg';
+backgroundimage[1].src = 'image_src/cave_background.jpg';
+backgroundimage[2].src = 'image_src/ghost_background.jpg';
 
 
 ballimg[0].src = 'image_src/pokeball.png'; 
@@ -73,6 +74,7 @@ function max_open(event){
 function startGame(no) {
   enemy_idx =0;
   skill_gage =0;
+  flag =0;
   life =3;
   game = new Game(no);
   canvas.focus();
@@ -144,19 +146,25 @@ class Ball {
     if (this.my < 0 && this.collideY < top) this.my *= -1;
   }
   change_position_gage_wrapper(obj){
+    var cx = $("#pageBox").offset().left;
+    var cy = $("#pageBox").offset().top;
+    cx = cx-8;
+    cy = cy -34;
+    obj.css({left: cx, top: cy});
+}
+  change_position_gametop(obj){
         var cx = $("#pageBox").offset().left;
         var cy = $("#pageBox").offset().top;
-        cx = cx-9;
-        cy = cy + 438;
-        obj.css({left: cx, top: cy});
+        cx = cx;
+        cy = cy-60;
+        obj.css({left: 0, top: 0});
     }
-
   change_position_gage(obj){
         var cx = $("#pageBox").offset().left;
         var cy = $("#pageBox").offset().top;
         cx = cx;
         cy = cy + 438;
-        obj.css({left: cx, top: cy});
+        obj.css({left: cx, top: cy-44});
     }
 
   change_position_life1(obj){
@@ -190,6 +198,7 @@ class Ball {
     //ctx.drawImage(ballimg[difficulty-1], this.x-this.radius,this.y-this.radius,this.radius*2,this.radius*2);
     ctx.drawImage(balling2, this.x-this.radius,this.y-this.radius,this.radius*2,this.radius*2);
         this.change_position_gage_wrapper($("#wrapper_gage"));
+        this.change_position_gametop($("#gametop"));
         this.change_position_gage($("#gage0"));
         this.change_position_gage($("#gage05"));
         this.change_position_gage($("#gage1"));
@@ -199,6 +208,7 @@ class Ball {
         this.change_position_life1($("#life1"));
         this.change_position_life2($("#life2"));
         this.change_position_life3($("#life3"));
+        $("#gametop").css({top:0});
   }
 }
 class Skill_Ball { 
@@ -424,6 +434,12 @@ function keyDownHandler(e) {
     else if(e.keyCode == 32) {
         keys.space = true;
         console.log("spacedown");
+    }
+    else if(e.keyCode ==67){ //clear
+      game.state="clear";
+    }
+    else if(e.keyCode == 69){
+      game.state="end";
     }
 
 }
@@ -739,7 +755,7 @@ function drawText(text) {
 }
 
 var game = null;
-
+var flag;
 function mainLoop() {
   requestAnimationFrame(mainLoop);
   
@@ -748,7 +764,16 @@ function mainLoop() {
     game.draw();
     if (game.state == "end") {
       ctx.clearRect(0, 0, WIDTH, HEIGHT); life =3; 
-      showrestartPage();
+      
+      
+      if(flag ==0){
+        cancelAnimationFrame(mainLoop);
+        flag =1;
+        showclearPage(0);
+        $("#backtostoryBtn").trigger("click");
+        
+      }
+      
     }
     if (game.state == "clear"){
       if (audio_cond) {
@@ -757,8 +782,14 @@ function mainLoop() {
       }
 
       check_if_level_clear[difficulty-1] = false
-      showclearPage();
-       
+      //showclearPage(1);
+      if(flag ==0){
+        cancelAnimationFrame(mainLoop);
+      flag =1;
+      showclearPage(1);
+      $("#clearBtn").trigger("click");
+      }
+      
       //ctx.clearRect(0, 0, WIDTH, HEIGHT); 
       //ctx.drawImage(completeimg, 0, 0, WIDTH, HEIGHT);
       //drawText("CLEAR");

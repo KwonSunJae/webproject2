@@ -94,7 +94,6 @@ function keep(){
                     console.log('22222');
                     
                     ctx.drawImage(dialog[2], 0,0,  dialog[2].width,dialog[2].height,   330,  130,   dialog[2].width/3,dialog[2].height/3);
-
                     setTimeout(function(){
                         i =3;
                         drawCharacter2(droh);
