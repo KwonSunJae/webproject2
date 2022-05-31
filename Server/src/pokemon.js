@@ -512,6 +512,7 @@ $(document).ready(function () {
         $("#clearPage").hide();
         $("#gamePage").hide();
         $("#game2").hide();
+        $("#myCanvas3").hide();
         clearInterval(playstory);
         $("#myCanvas").hide();
         showStoryPage();
@@ -556,6 +557,8 @@ $(document).ready(function () {
     });
     $("#clearBtn").on("click", function () {
         $("#myCanvas").hide();
+        $("#myCanvas3").hide();
+        $("#game2").hide();
         $("#restartPage").hide();
         $("#clearPage").hide();
         clear[difficulty] = 1;
