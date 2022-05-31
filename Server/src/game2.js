@@ -256,7 +256,9 @@ var flag =0;
 var temp =0;
 function startGame2(no) {
     socket = io.connect('http://133.186.209.203:3000');
-    
+    ch =0;
+    flag=0;
+    temp=0;
     socket.on('keyDown',function(data){
         if(ch%2==1){
             if(data[0]==(ch+1).toString()){
