@@ -7,7 +7,8 @@ var page;
 var audio_volume = 5;
 var ball_selected = 'image_src/pokeball.png';
 
-
+var endings ;
+var credits;
 var canvas2;
 var ctx2;
 var char = "./src/"
@@ -284,7 +285,10 @@ function loop() {
 }
 
 function init() {
-
+    endings = new Image;
+    credits = new Image;
+    endings.src = char+'ending_.png';
+    credits.src = char + 'ending.png';
     for (var i = 0; i < 3; i++) {
         pockimg[i] = new Image;
         pockimg[i].src = char + "charimg" + (i + 1).toString() + ".webp";
@@ -1200,7 +1204,7 @@ function keep() {
 
 function keep2() {
     console.log("keep2 ");
-    
+    hideOptionBtn();
     droh.x = player.x;
     droh.speed= 3;
     player.y = 1460;
@@ -1258,9 +1262,21 @@ function keep2() {
                                 var j = 5;
                                 drawCharacter3(droh);
                                 console.log('22222');
-
+                                setTimeout(function(){
+                                    ctx2.drawImage(endings, 0, 0);
+                                    setTimeout(function(){
+                                        ctx2.clearRect(0,0,700,400);
+                                        ctx2.drawImage(credits,0,0);
+                                        
+                                        setTimeout(function(){
+                                            hideStoryPage();
+                                            window.location.reload();
+                                        },3000);
+                                    },3000);
+                                },3000);
                                 
-                            }, 3000);
+                                
+                            }, 1000);
                         }, 3000);
                     }, 3000);
 
