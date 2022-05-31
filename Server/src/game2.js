@@ -195,22 +195,23 @@ class HockeyGame {
   update() {
     
   	if (this.ball1.y<0) {
-        if(flag ==0){
+        
             flag=1;
             cancelAnimationFrame(mainLoop2);
             showclearPage(1);
             $("#clearBtn").trigger("click");
-            console.log("player1 win")};
-        }
+            console.log("player1 win")
+          };
         
+    
   	if (this.ball1.y > HEIGHT1) {
-        if(flag==0){
+        
             flag =1;
             cancelAnimationFrame(mainLoop2);
             showclearPage(0);
             $("#backtostoryBtn").trigger("click");
             console.log("player2 win");
-        }
+      
     }
     if (this.state == "start") {
       this.timeCount++;
