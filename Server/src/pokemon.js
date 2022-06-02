@@ -693,7 +693,7 @@ function multistart(){
     $("#clearPage").hide();
     
     $("#game2").show();
-    
+    $("#myCanvas3").show();
     startGame2(0);
     hideStoryPage();
     changeBGM();

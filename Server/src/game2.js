@@ -22,6 +22,7 @@ var keys1 = {
 };
 var hockeystickimg = new Array();
 var hockeybackgroundimg = new Image();
+var hockeygame;
 hockeybackgroundimg.src = 'image_src/hockey_background.jpg';
 for (var i = 0; i < 2; i++) {
   hockeystickimg[i] = new Image();
