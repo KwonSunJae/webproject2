@@ -123,7 +123,7 @@ function input(player) {
                 player.pocket = 3;
             }
 
-            if (player.x >= 270 && player.x <= 330 && player.y >= 1380 && player.y <= 1400) {
+            if (player.x >= 270 && player.x <= 330 && player.y >= 1380 && player.y <= 1400 &&player.pocket!=0) {
                 pokemonselect(player.pocket, 1);
                 difficulty = 1;
                 change_position($("#gametop"));
@@ -137,7 +137,7 @@ function input(player) {
                 });
                 change_position($("#pageBox"));
             }
-            if (player.x >= 1310 && player.x <= 1390 && player.y >= 1290 && player.y <= 1330) {
+            if (player.x >= 1310 && player.x <= 1390 && player.y >= 1290 && player.y <= 1330&&player.pocket!=0) {
                 pokemonselect(player.pocket, 3);
                 difficulty = 3;
                 change_position($("#gametop"));
@@ -153,7 +153,7 @@ function input(player) {
                 change_position($("#pageBox"));
 
             }
-            if (player.x >= 450 && player.x <= 540 && player.y >= 520 && player.y <= 550) {
+            if (player.x >= 450 && player.x <= 540 && player.y >= 520 && player.y <= 550 &&player.pocket!=0) {
                 difficulty = 2;
                 pokemonselect(player.pocket, 2);
                 change_position($("#gametop"));

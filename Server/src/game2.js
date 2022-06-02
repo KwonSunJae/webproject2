@@ -83,7 +83,7 @@ class HockeyBall {
   }
 
   move(k) {
-    console.log("move");
+    //console.log("move");
     this.x += this.mx * k;
     this.y += this.my * k;
   }
@@ -199,23 +199,7 @@ class HockeyGame {
 
   update() {
 
-    if (this.ball1.y < 0 && finish ==0) {
-      console.log("player1 win");
-      finish = 1;
-      cancelAnimationFrame(mainLoop2);
-      showclearPage(1);
-      $("#clearBtn").trigger("click");
-      
-    }
-    if (this.ball1.y > HEIGHT1&& finish ==0) {
-      console.log("player2 win");
-      finish = 1;
-      cancelAnimationFrame(mainLoop2);
-      showclearPage(0);
-      $("#backtostoryBtn").trigger("click");
-      
-
-    }
+    
     if (this.state == "start") {
       this.timeCount++;
       if (this.timeCount >= 100) this.state = "play";
@@ -254,6 +238,29 @@ class HockeyGame {
 
 function mainLoop2() {
   requestAnimationFrame(mainLoop2);
+  if(!socket.connect().connected()){
+    finish =1;
+    hockeygame.ball.y =0;
+  }
+  if (hockeygame.ball1.y < 0 && finish ==0) {
+    
+    console.log("player1 win");
+    finish = 1;
+    cancelAnimationFrame(mainLoop2);
+    showclearPage(1);
+    $("#clearBtn").trigger("click");
+    return;
+    
+  }
+  if (hockeygame.ball1.y > HEIGHT1&& finish ==0) {
+    console.log("player2 win");
+    finish = 1;
+    cancelAnimationFrame(mainLoop2);
+    showclearPage(0);
+    $("#backtostoryBtn").trigger("click");
+    return;
+
+  }
   //console.log("aa");
   hockeygame.update();
   hockeygame.draw();
@@ -265,6 +272,7 @@ var temp = 0;
 
 function startGame2(no) {
   socket = io.connect('http://133.186.209.203:3000');
+  
   ch = 0;
   flag = 0;
   temp = 0;
