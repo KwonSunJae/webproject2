@@ -1,9 +1,9 @@
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
+
 
 var canvas3 = document.getElementById("myCanvas3");
 var ctx3 = canvas3.getContext("2d");
 var flags = 0;
+var finish =0;
 var WIDTH1 = canvas3.width;
 var HEIGHT1 = canvas3.height;
 var BALL_RADIUS1 = 30;
@@ -199,17 +199,17 @@ class HockeyGame {
 
   update() {
 
-    if (this.ball1.y < 0) {
+    if (this.ball1.y < 0 && finish ==0) {
       console.log("player1 win");
-      flag = 1;
+      finish = 1;
       cancelAnimationFrame(mainLoop2);
       showclearPage(1);
       $("#clearBtn").trigger("click");
       
     }
-    if (this.ball1.y > HEIGHT1) {
+    if (this.ball1.y > HEIGHT1&& finish ==0) {
       console.log("player2 win");
-      flag = 1;
+      finish = 1;
       cancelAnimationFrame(mainLoop2);
       showclearPage(0);
       $("#backtostoryBtn").trigger("click");
@@ -342,7 +342,11 @@ function startGame2(no) {
       ch = temp;
 
     }
-    if (temp % 2 == 0) {
+    if (temp % 2 == 0 &&flag==1) {
+      flag+=1;
+      finish =0;
+      document.addEventListener("keydown", keyDownHandler, false);
+      document.addEventListener("keyup", keyUpHandler, false);
       hockeygame = new HockeyGame(0);
       canvas3.focus();
       mainLoop2();
