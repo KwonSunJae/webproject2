@@ -238,7 +238,7 @@ class HockeyGame {
 
 function mainLoop2() {
   requestAnimationFrame(mainLoop2);
-  if(!socket.connect().connected()){
+  if(!socket.connect().connected){
     finish =1;
     hockeygame.ball.y =0;
   }
