@@ -397,7 +397,8 @@ class Bricks {
       this.count--;
       score = score + 100;
       var intext = "Score : "+score;
-      $("#score_restart_p").html(intext);
+      $("#score_restart_p").text(intext);
+      console.log("draw");
       return true;
     }
     else return false;
