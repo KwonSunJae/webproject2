@@ -352,6 +352,15 @@ function startGame2(no) {
 
     }
     if (temp % 2 == 0 &&flag==1) {
+      WIDTH1 = canvas3.width;
+      HEIGHT1 = canvas3.height;
+      BALL_RADIUS1 = 30;
+      PADDLE_WIDTH1 = 300;
+      PADDLE_HEIGHT1 = 100;
+      PADDLE_X1 = (WIDTH1 - PADDLE_WIDTH1) / 2;
+      PADDLE_Y1 = HEIGHT1 - PADDLE_HEIGHT1 - 10;
+      PADDLE_SPEED1 = 20;
+      COLOR1 = "dodgerblue";
       flag+=1;
       finish =0;
       document.addEventListener("keydown", keyDownHandler, false);
