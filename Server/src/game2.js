@@ -58,7 +58,7 @@ function keyUpHandler(e) {
     socket.emit('keyUp', (ch).toString() + 'Right');
   } else if (e.key == "Left" || e.key == "ArrowLeft") {
     keys1.left = false;
-    socket.emit('keyUp', (ch).toString() + 'Left');
+    socket.emit('keyUp', (ch).toString() + 'Left' );
   } else if (e.keyCode == 65) {
     keys1.a = false;
     console.log("aaaaaaaaaaaa");
@@ -247,8 +247,10 @@ function mainLoop2() {
     
     console.log("player1 win");
     finish = 1;
+    socket.Disconnect();
     cancelAnimationFrame(mainLoop2);
     showclearPage(1);
+    socket.Disconnect();
     $("#clearBtn").trigger("click");
     return;
     
@@ -256,6 +258,7 @@ function mainLoop2() {
   if (hockeygame.ball1.y > HEIGHT1&& finish ==0) {
     console.log("player2 win");
     finish = 1;
+    socket.Disconnect();
     cancelAnimationFrame(mainLoop2);
     showclearPage(0);
     $("#backtostoryBtn").trigger("click");

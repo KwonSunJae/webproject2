@@ -6,7 +6,7 @@ var clear = [0, 0, 0, 0];
 var page;
 var audio_volume = 5;
 var ball_selected = 'image_src/pokeball.png';
-
+var multi =0;
 var endings ;
 var credits;
 var canvas2;
@@ -110,8 +110,10 @@ function input(player) {
     var flag = 1;
     if ($("#storyPage").css("display") == "block") {
         if (32 in keys) {
-            if(player.x>=1200 && player.x<=1300&&player.y>=520&&player.y<=620){
+            if(player.x>=1200 && player.x<=1300&&player.y>=520&&player.y<=620 && multi ==0){
+                multi=1;
                 multistart();
+
             }
             if (player.x >= 740 && player.y <= 790 && player.y >= 700 && player.y <= 800) {
                 player.pocket = 1;
