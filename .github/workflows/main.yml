@@ -23,7 +23,7 @@ jobs:
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.DEV_USER }}
           script: |
-            cd server
+            cd webproject2
             git reset --hard
             git fetch
             git pull
