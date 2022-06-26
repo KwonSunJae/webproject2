@@ -7,7 +7,7 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches:
-      - main
+      - release
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,8 +19,8 @@ jobs:
       - name: Run scripts in server
         uses: appleboy/ssh-action@master
         with:
-          key: ${{ secrets.DEV_SSH_KEY }}
-          host: ${{ secrets.DEV_HOST }}
+          key: ${{ secrets.REL_SSH_KEY }}
+          host: ${{ secrets.REL_HOST }}
           username: ${{ secrets.DEV_USER }}
           script: |
             cd webproject2
